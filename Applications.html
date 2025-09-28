@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+   <div class="navbar"><a href="index.html">Home</a>
+     <a href="Applications.html">Applied Jobs</a>
+     <a href="Bookmarks.html">Bookmarks</a>
+    </div>
+    <!--filter by name-->
+<select id="FilterName" onchange="SortByName()">
+    <option value="">Sort by Name</option>
+    <option value="asc">ascending</option>
+    <option value="dsc">descending</option>
+</select>
+    <!--filters salary-->
+    <select id="FilterSalary" onchange="SortBySalary()">
+        <option value="">Sort by Salary</option>
+        <option value="HTL">Hight to Low</option>
+        <option value="LTH">Low to High</option>
+        
+        
+    </select>
+    <!-- filter role-->
+     <select id="FilterRole" onchange=" SortRole()">
+        <option value="">Filter Category</option>
+        <option value="Fullstack">Fullstack</option>
+        <option value="Frontend">Frontend</option>
+        <option value="Backend">Backend</option>
+     </select>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Job Applied</th>
+                <th>Salary Expected</th>
+                <th>Bookmarks</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+</body>
+<script>
+    let AppliedJobs=JSON.parse(localStorage.getItem("joblist"));
+    DisplayData(AppliedJobs);
+    function BookmarkData(element){
+        let Bookmarkarr;
+        if(localStorage.getItem("AppliedJobs")!==null){
+        Bookmarkarr=JSON.parse(localStorage.getItem("AppliedJobs"));
+        }
+        else {
+            Bookmarkarr=[];
+        }
+
+        Bookmarkarr.push(element);
+        localStorage.setItem("AppliedJobs",JSON.stringify(Bookmarkarr));
+    };
+    //sort by name
+  function SortByName(){
+    let Name=document.getElementById("FilterName").value;
+  if (Name=="asc"){
+   let FilterName=AppliedJobs.sort(function(a,b){
+    let x=a.EmployeName.toUpperCase();
+    let y=b.EmployeName.toUpperCase();
+    if (x > y) {
+          return -1;
+        }
+        if (x < y) {
+          return 1;
+        }
+        return 0;
+   })
+   DisplayData(FilterName);
+  }
+   if (Name=="dsc"){
+   let FilterName=AppliedJobs.sort(function(a,b){
+    let x=a.EmployeName.toUpperCase();
+    let y=b.EmployeName.toUpperCase();
+    if (x > y) {
+          return 1;
+        }
+        if (x < y) {
+          return -1;
+        }
+        return 0;
+   })
+   DisplayData(FilterName);
+  }
+  }
+    //sort by salary
+    function SortBySalary(){
+    let Salary=document.getElementById("FilterSalary").value;
+    
+    if(Salary=="HTL"){
+     let filtersalary=AppliedJobs.sort(function(a,b){
+        return b.EmployeSalary-a.EmployeSalary;
+     })
+     console.log(filtersalary);
+     DisplayData(filtersalary);
+    }
+    if(Salary=="LTH"){
+     let filtersalary=AppliedJobs.sort(function(a,b){
+        return a.EmployeSalary-b.EmployeSalary;
+     })
+     DisplayData(filtersalary);
+    }
+    
+    }
+    //sort by role
+    function SortRole(){
+    let Role=document.getElementById("FilterRole").value;
+    let FilterRole=AppliedJobs.filter(element=>element.EmployeRole==Role);
+    DisplayData(FilterRole);
+    }
+    //main method to display table data in body
+    function DisplayData(data){
+         document.querySelector("tbody").innerText="";
+    data.forEach(function(element) {
+        let tr=document.createElement("tr");
+        let td1=document.createElement("td");
+          td1.innerText=element.EmployeName;
+        let td2=document.createElement("td");
+        td2.innerText=element.EmployeEmail;
+        let td3=document.createElement("td");
+         td3.innerText=element.EmployeRole;
+        let td4=document.createElement("td");
+         td4.innerText=element.EmployeSalary;
+        let td5=document.createElement("td");
+         td5.innerText="Bookmark";
+         td5.addEventListener("click" ,function(){
+            BookmarkData(element);
+         });
+            tr.append(td1,td2,td3,td4,td5);
+         document.querySelector("tbody").append(tr);
+        
+         
+        });
+    }
+    
+</script>
+
+</html>

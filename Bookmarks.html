@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar"><a href="index.html">Home</a>
+     <a href="Applications.html">Applied Jobs</a>
+     <a href="Bookmarks.html">Bookmarks</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Job Applied</th>
+                <th>Salary Expected</th>
+                <th>Bookmarks</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</body>
+<script>
+    
+     let BookmarkArr=JSON.parse(localStorage.getItem("AppliedJobs"));
+      BookmarkArr.forEach(function(element,index) {
+        let tr=document.createElement("tr");
+        let td1=document.createElement("td");
+          td1.innerText=element.EmployeName;
+        let td2=document.createElement("td");
+        td2.innerText=element.EmployeEmail;
+        let td3=document.createElement("td");
+         td3.innerText=element.EmployeRole;
+        let td4=document.createElement("td");
+         td4.innerText=element.EmployeSalary;
+        let td5=document.createElement("td");
+         td5.innerText="Delete";
+         td5.addEventListener("click" ,function(){
+            DeleteItem(element,index);
+         });
+         tr.append(td1,td2,td3,td4,td5);
+         document.querySelector("tbody").append(tr);
+
+    });
+    function DeleteItem(element,index){
+      BookmarkArr.splice(index,1);
+      localStorage.setItem("AppliedJobs",JSON.stringify(BookmarkArr));
+      window.location.reload();
+    }
+</script>
+</html>

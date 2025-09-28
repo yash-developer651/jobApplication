@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+     <div class="navbar">
+      <div><a href="index.html">Home</a></div>
+     <div><a href="Applications.html">Applied Jobs</a></div>
+     <div><a href="Bookmarks.html">Bookmarks</a></div>
+     </div>
+     <div id="formdata">
+     <form id="form">
+     <label for="">Enter Name</label>
+    <input type="text"  id="name"placeholder="Enter Your Name" value="" required>
+    <label for="">Enter Email</label>
+    <input type="email" id="email"placeholder="Enter Email" value="" required>
+    <label> Select Role</label>
+    <select id="role" required>
+        <option value="Fullstack">FullStack</option>
+        <option value="Backend">Backend</option>
+        <option value="Frontend">Frontend</option>
+    </select>
+    <label for="">Expected Salary</label>
+    <input type="numbers" id="salary"placeholder="Enter Your Expected Salary" value="" required>
+    <input type="submit">
+    
+
+    </form>
+    </div>
+</body>
+<script>
+  document.querySelector("#form").addEventListener("submit", Employedetails);
+  let arr;
+  if(localStorage.getItem("joblist")!==null){
+    arr=JSON.parse(localStorage.getItem("joblist"));
+  }
+  else{
+  arr=[];
+  }
+  function Employedetails(event){
+    event.preventDefault();
+  let Arrdata={
+    EmployeName:document.querySelector("#name").value,
+    EmployeEmail:document.querySelector("#email").value,
+    EmployeRole:document.querySelector("#role").value,
+    EmployeSalary:document.querySelector("#salary").value
+    
+  }
+  arr.push(Arrdata);
+
+  localStorage.setItem("joblist",JSON.stringify(arr));
+   document.querySelector("#form").reset();
+   alert("job saved successfully");
+   window.location.href="\Applications.html";
+  }
+
+
+</script>
+</html>
