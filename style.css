@@ -35,7 +35,7 @@ form label{
     margin-bottom: 5px;
     font-weight: bold;
 }
-form input[type="text"],input[type="email"],select,input[type="numbers"]{
+form input[type="text"],input[type="email"],#role,input[type="numbers"]{
     width:90%;
     padding: 8px;
     margin-bottom: 15px;
