@@ -67,3 +67,40 @@ th{
     color: white;
     background-color: tomato;
 }
+@media screen and (max-width:400px) {
+    .navbar {
+ flex-direction: column;
+    margin-left: 0;
+    }
+     div a {
+    margin-left: 0;
+    font-size: 14px;
+    text-decoration:underline;
+  }
+
+  #formdata {
+    width: 95%;   /* almost full width */
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    padding: 8px;
+  }
+
+  form input[type="text"],
+  input[type="email"],
+  #role,
+  input[type="numbers"] {
+    width: 90%; /* take full width */
+  }
+
+  
+
+  table {
+    width: 100%;   /* full screen */
+    font-size: 12px;
+  }
+
+  table td, table th {
+    padding: 6px;
+  }
+}
